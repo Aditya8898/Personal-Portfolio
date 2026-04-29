@@ -19,9 +19,17 @@ app.use(cors({
 app.use(express.json());
 
 // 🔥 MongoDB connect
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("MongoDB Connected successfully");
+  } catch (err) {
+    console.error("MongoDB connection failed:", err);
+    process.exit(1);
+  }
+};
+
+connectDB();
 
 
 
@@ -47,7 +55,7 @@ app.post("/contact", async (req, res) => {
 
     console.log("✅ Data saved in MongoDB");
 
-    res.json({ message: "Message sent successfully!" });
+    res.json({ message: "Message sent successfully!", savedId: newContact._id });
 
   } catch (error) {
     console.log("❌ Save Error:", error);
@@ -56,7 +64,8 @@ app.post("/contact", async (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-  res.json({ status: "ok" });
+  const connected = mongoose.connection.readyState === 1;
+  res.json({ status: "ok", mongoConnected: connected, readyState: mongoose.connection.readyState });
 });
 
 app.listen(5000, () => {
