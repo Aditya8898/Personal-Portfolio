@@ -191,8 +191,15 @@ if (contactForm) {
     setLoading(true);
     hideFormMessage();
 
+    let API_URL;
+    if (['localhost', '127.0.0.1'].includes(window.location.hostname) || window.location.protocol === 'file:') {
+      API_URL = 'http://localhost:5000/contact';
+    } else {
+      API_URL = 'https://personal-portfolio-dulu.onrender.com/contact';
+    }
+
     try {
-      const res = await fetch('http://localhost:5000/contact', {
+      const res = await fetch(API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -210,7 +217,7 @@ if (contactForm) {
       }
     } catch (error) {
       console.error('Contact form error:', error);
-      showFormMessage('Unable to connect to server. Please make sure the backend is running.', 'error');
+      showFormMessage('Unable to connect to server. Try local backend with `cd backend && npm start` or check Render deployment.', 'error');
     } finally {
       setLoading(false);
     }

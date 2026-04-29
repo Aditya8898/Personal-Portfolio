@@ -6,7 +6,16 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://personal-portfolio-six-xi-91.vercel.app',
+    'https://personal-portfolio-dulu.onrender.com',
+    'http://localhost:3000',
+    'http://localhost:5000',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:5000'
+  ]
+}));
 app.use(express.json());
 
 // 🔥 MongoDB connect
@@ -44,6 +53,10 @@ app.post("/contact", async (req, res) => {
     console.log("❌ Save Error:", error);
     res.status(500).json({ message: "Error saving data" });
   }
+});
+
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
 });
 
 app.listen(5000, () => {

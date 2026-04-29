@@ -11,6 +11,12 @@
 
 This is a **full-stack personal portfolio website** built to showcase Aditya Gauda's backend development skills. The project consists of a modern, animated frontend (HTML/CSS/JS) and a lightweight Express.js backend with MongoDB integration for handling contact form submissions.
 
+---
+
+## 1.5. Live URL
+
+**Deployed Application:** [https://personal-portfolio-dulu.onrender.com](https://personal-portfolio-dulu.onrender.com)
+
 The portfolio effectively demonstrates proficiency in:
 - **Frontend:** Responsive design, CSS animations, dark/light theme toggle, scroll reveal animations, typing effect
 - **Backend:** REST API design, MongoDB/Mongoose integration, CORS handling, environment configuration
